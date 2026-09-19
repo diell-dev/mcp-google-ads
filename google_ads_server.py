@@ -32,7 +32,7 @@ mcp = FastMCP(
 
 # Constants and configuration
 SCOPES = ['https://www.googleapis.com/auth/adwords']
-API_VERSION = "v19"  # Google Ads API version
+API_VERSION = "v25"  # Google Ads API version (v25 released 2026-07; v19 sunset)
 
 # Load environment variables
 try:
@@ -1470,6 +1470,11 @@ async def list_resources(
     
     # Use your existing run_gaql function to execute this query
     return await run_gaql(customer_id, query)
+
+# Register write / mutate tools (kept in a separate module for easy auditing).
+# This import must stay at the bottom: google_ads_write imports names defined
+# above (mcp, get_headers, etc.), so everything must already exist.
+import google_ads_write  # noqa: E402,F401
 
 if __name__ == "__main__":
     # Start the MCP server on stdio transport

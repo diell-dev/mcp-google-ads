@@ -37,9 +37,11 @@ API_VERSION = "v25"  # Google Ads API version (v25 released 2026-07; v19 sunset)
 # Load environment variables
 try:
     from dotenv import load_dotenv
-    # Load from .env file if it exists
-    load_dotenv()
-    logger.info("Environment variables loaded from .env file")
+    # Load from the .env sitting next to this script, so it works regardless of
+    # the current working directory the MCP host launches us from.
+    _env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    load_dotenv(dotenv_path=_env_path)
+    logger.info(f"Environment variables loaded from {_env_path}")
 except ImportError:
     logger.warning("python-dotenv not installed, skipping .env file loading")
 

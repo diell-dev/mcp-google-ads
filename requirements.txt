@@ -1,5 +1,8 @@
 # MCP requirements
-mcp>=0.0.11
+# Pinned to the last 1.x release. mcp 2.0.0 restructured the package and removed
+# `mcp.server.fastmcp`, which this server imports. Do not bump to 2.x without
+# migrating the FastMCP usage in google_ads_server.py.
+mcp==1.29.0
 
 # Google API requirements
 google-auth>=2.25.2
